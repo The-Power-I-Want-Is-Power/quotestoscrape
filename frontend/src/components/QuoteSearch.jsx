@@ -203,7 +203,7 @@ export default function QuoteSearch() {
                 key={type}
                 className={`relative cursor-pointer rounded-xl border-2 p-4 transition-all duration-200 ${
                   searchType === type
-                    ? 'border-primary bg-primary/10 shadow-lg'
+                    ? 'border-blue-500 bg-blue-500/10 shadow-lg ring-2 ring-blue-500/30 ring-offset-2 ring-offset-background'
                     : 'border-border hover:border-border-hover bg-surface/30'
                 }`}
               >
@@ -226,7 +226,7 @@ export default function QuoteSearch() {
                 </div>
                 {searchType === type && (
                   <div className="absolute top-2 right-2">
-                    <div className="w-2 h-2 bg-primary rounded-full"></div>
+                    <div className="w-3 h-3 bg-blue-500 rounded-full shadow-lg ring-1 ring-blue-400"></div>
                   </div>
                 )}
               </label>
