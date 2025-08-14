@@ -14,8 +14,8 @@ DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 os.makedirs(DATA_DIR, exist_ok=True)
 
 @app.route('/')
-def home():
-    return "Quote Search API is running!"
+def index():
+    return render_template('index.html')
 
 @app.route('/api/scrape', methods=['POST'])
 def scrape_quotes():
