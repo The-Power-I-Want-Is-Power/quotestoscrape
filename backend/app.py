@@ -13,6 +13,10 @@ CORS(app)  # This will allow all origins in development
 DATA_DIR = os.path.join(os.path.dirname(__file__), '..', 'data')
 os.makedirs(DATA_DIR, exist_ok=True)
 
+@app.route('/')
+def home():
+    return "Quote Search API is running!"
+
 @app.route('/api/scrape', methods=['POST'])
 def scrape_quotes():
     """Endpoint to trigger quote scraping"""
