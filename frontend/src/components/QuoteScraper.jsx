@@ -11,17 +11,6 @@ export default function QuoteScraper() {
     setMessage('');
     setProgress(0);
     
-    // Simulate progress for better UX experience, more modern, cleaner
-    const progressInterval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 90) {
-          clearInterval(progressInterval);
-          return 90;
-        }
-        return prev + Math.random() * 8 + 2; // Smaller, more consistent increments
-      });
-    }, 150); // Faster updates for smoother animation
-    
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
       const response = await fetch(`${apiUrl}/api/scrape`, {
@@ -29,7 +18,6 @@ export default function QuoteScraper() {
       });
       const data = await response.json();
       
-      clearInterval(progressInterval);
       setProgress(100);
       
       setTimeout(() => {
@@ -42,7 +30,6 @@ export default function QuoteScraper() {
       }, 500);
       
     } catch (error) {
-      clearInterval(progressInterval);
       setProgress(0);
       setMessage('Error connecting to the server');
       console.error('Error:', error);
@@ -83,13 +70,9 @@ export default function QuoteScraper() {
           disabled={isLoading}
           className={`btn w-full flex items-center justify-center gap-3 py-4 text-lg font-semibold relative overflow-hidden ${
             isLoading 
-              ? 'btn-ghost cursor-not-allowed' 
+              ? 'btn-ghost cursor-not-allowed loading-progress' 
               : 'btn-primary hover:shadow-lg hover:shadow-primary-500/30'
           }`}
-          style={isLoading ? {
-            background: `linear-gradient(to right, #3b82f6 ${progress}%, rgba(255, 255, 255, 0.05) ${progress}%)`,
-            transition: 'background 0.3s ease-out'
-          } : {}}
         >
           {isLoading ? (
             <>
@@ -107,7 +90,7 @@ export default function QuoteScraper() {
         {/* Progress Indicator */}
         {isLoading && (
           <div className="text-center text-sm text-text-secondary animate-fade-in">
-            <span>{Math.round(progress)}% complete</span>
+            <span>Processing your request...</span>
           </div>
         )}
       </div>
