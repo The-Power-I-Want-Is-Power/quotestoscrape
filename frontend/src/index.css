@@ -93,9 +93,10 @@
   }
   
   @keyframes glow {
-    0% { filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.3)); }
-    100% { filter: drop-shadow(0 0 30px rgba(59, 130, 246, 0.6)); }
-  }
+  0% { filter: drop-shadow(0 0 5px rgba(59, 130, 246, 1));}
+  100% {filter: drop-shadow(0 0 15px rgba(59, 130, 246, 1));}
+}
+
 
   /* Animation utilities */
   .animate-fade-in { 
