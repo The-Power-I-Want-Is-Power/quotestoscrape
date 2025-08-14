@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { Search, Loader, AlertTriangle, Quote, Filter, Sparkles, User, Tag, Brain, Copy, Heart, Check } from 'lucide-react';
 
-const SearchResult = ({ result, index, searchType }) => {
+const SearchResult = memo(({ result, index, searchType }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [copyStatus, setCopyStatus] = useState('idle'); // 'idle', 'copying', 'copied'
 
-  const handleCopy = async () => {
+  const handleCopy = useCallback(async () => {
     try {
       setCopyStatus('copying');
       const textToCopy = `"${result.text}" - ${result.author}`;
@@ -16,11 +16,11 @@ const SearchResult = ({ result, index, searchType }) => {
       console.error('Failed to copy:', error);
       setCopyStatus('idle');
     }
-  };
+  }, [result.text, result.author]);
 
-  const handleLike = () => {
+  const handleLike = useCallback(() => {
     setIsLiked(!isLiked);
-  };
+  }, [isLiked]);
 
   return (
     <div className="quote-card group animate-slide-in" style={{ animationDelay: `${index * 0.1}s` }}>
@@ -88,9 +88,9 @@ const SearchResult = ({ result, index, searchType }) => {
       </div>
     </div>
   );
-};
+});
 
-const SearchTypeIcon = ({ type }) => {
+const SearchTypeIcon = memo(({ type }) => {
   const icons = {
     keyword: Search,
     author: User,
@@ -99,7 +99,7 @@ const SearchTypeIcon = ({ type }) => {
   };
   const Icon = icons[type] || Search;
   return <Icon className="w-4 h-4" />;
-};
+});
 
 export default function QuoteSearch() {
   const [searchType, setSearchType] = useState('keyword');
@@ -110,7 +110,7 @@ export default function QuoteSearch() {
   const [error, setError] = useState(null);
   const [hasSearched, setHasSearched] = useState(false);
 
-  const handleSearch = async (e) => {
+  const handleSearch = useCallback(async (e) => {
     e.preventDefault();
     if (!query.trim()) return;
     
@@ -140,7 +140,7 @@ export default function QuoteSearch() {
     }
 
     setIsLoading(false);
-  };
+  }, [query, searchType, exactMatch]);
 
   const searchTypeLabels = {
     keyword: 'Keyword Search',
