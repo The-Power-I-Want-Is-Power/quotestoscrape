@@ -118,6 +118,16 @@
     animation: glow 2s ease-in-out infinite alternate; 
     will-change: box-shadow;
   }
+  .animate-click { 
+    animation: clickPulse 0.15s ease-out; 
+    will-change: transform;
+  }
+
+  @keyframes clickPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+  }
 
   * {
     border-color: rgba(229, 231, 235, 0.2);
@@ -359,10 +369,33 @@
     padding: 0.75rem;
     border-radius: 0.75rem;
     font-weight: 500;
-    transition: all 200ms ease-out;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-    transform: scale(1);
+    transition: transform 80ms ease-out;
+    transform: translateZ(0);
     aspect-ratio: 1 / 1;
+  }
+
+  .btn-icon-no-focus {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: transform 60ms ease-out;
+    transform: translateZ(0);
+    will-change: transform;
+    outline: none !important;
+    border: none;
+    background: transparent;
+  }
+
+  .btn-icon-no-focus:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .btn-icon-no-focus:active {
+    transform: scale(0.85) translateZ(0);
   }
 
   /* Enhanced form controls */

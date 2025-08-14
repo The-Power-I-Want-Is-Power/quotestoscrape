@@ -4,8 +4,13 @@ import { Search, Loader, AlertTriangle, Quote, Filter, Sparkles, User, Tag, Brai
 const SearchResult = memo(({ result, index, searchType }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [copyStatus, setCopyStatus] = useState('idle'); // 'idle', 'copying', 'copied'
+  const [copyClicked, setCopyClicked] = useState(false);
+  const [likeClicked, setLikeClicked] = useState(false);
 
   const handleCopy = useCallback(async () => {
+    setCopyClicked(true);
+    setTimeout(() => setCopyClicked(false), 150);
+    
     try {
       setCopyStatus('copying');
       const textToCopy = `"${result.text}" - ${result.author}`;
@@ -19,6 +24,8 @@ const SearchResult = memo(({ result, index, searchType }) => {
   }, [result.text, result.author]);
 
   const handleLike = useCallback(() => {
+    setLikeClicked(true);
+    setTimeout(() => setLikeClicked(false), 150);
     setIsLiked(!isLiked);
   }, [isLiked]);
 
@@ -57,7 +64,9 @@ const SearchResult = memo(({ result, index, searchType }) => {
         <div className="flex items-center gap-2">
           <button 
             onClick={handleCopy}
-            className={`btn-icon btn-ghost transition-colors group-hover:opacity-100 opacity-60 ${
+            className={`btn-icon-no-focus transition-colors group-hover:opacity-100 opacity-60 ${
+              copyClicked ? 'animate-click' : ''
+            } ${
               copyStatus === 'copied' 
                 ? 'text-green-500 hover:text-green-600' 
                 : 'text-text-tertiary hover:text-primary'
@@ -72,7 +81,9 @@ const SearchResult = memo(({ result, index, searchType }) => {
           </button>
           <button 
             onClick={handleLike}
-            className={`btn-icon btn-ghost transition-colors group-hover:opacity-100 opacity-60 ${
+            className={`btn-icon-no-focus transition-colors group-hover:opacity-100 opacity-60 ${
+              likeClicked ? 'animate-click' : ''
+            } ${
               isLiked 
                 ? 'text-red-500 hover:text-red-600' 
                 : 'text-text-tertiary hover:text-red-500'
