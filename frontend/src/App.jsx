@@ -22,7 +22,7 @@ function App() {
           </div>
           
           <p className="text-text-secondary mt-6 text-xl font-light max-w-2xl mx-auto leading-relaxed">
-            I humbly welcome you to my little pet project - originally just a CLI webscraper and search engine (mainly to test LSI stuff) - now turned into a fully deployed React + Flask web app. I spent a lot of time on the visuals - please enjoy.
+            I humbly welcome you to my little pet project - originally just a CLI webscraper and search engine (mainly to test and see how LSI processes data corpuses and thus allows for semantic searching) - now turned into a fully deployed React + Flask web app. I spent a lot of time on the visuals - please enjoy. I may update this in the future with a new source of quotes so that I can feed the application a WAY larger corpus, thus making it truly accurate.
           </p>
           
           {/* Floating elements for visual interest */}
