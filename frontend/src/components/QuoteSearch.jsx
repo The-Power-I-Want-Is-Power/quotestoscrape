@@ -1,42 +1,94 @@
 import { useState } from 'react';
-import { Search, Loader, AlertTriangle, Quote, Filter, Sparkles, User, Tag, Brain, Copy, Heart } from 'lucide-react';
+import { Search, Loader, AlertTriangle, Quote, Filter, Sparkles, User, Tag, Brain, Copy, Heart, Check } from 'lucide-react';
 
-const SearchResult = ({ result, index }) => (
-  <div className="quote-card group animate-slide-in" style={{ animationDelay: `${index * 0.1}s` }}>
-    <div className="quote-text pl-6">
-      {result.text}
-    </div>
-    
-    <div className="quote-author">
-      <User className="w-4 h-4 inline mr-2" />
-      {result.author}
-    </div>
-    
-    <div className="quote-tags">
-      {result.tags.map((tag, idx) => (
-        <span key={idx} className="tag">
-          <Tag className="w-3 h-3 mr-1" />
-          {tag}
-        </span>
-      ))}
-    </div>
+const SearchResult = ({ result, index, searchType }) => {
+  const [isLiked, setIsLiked] = useState(false);
+  const [copyStatus, setCopyStatus] = useState('idle'); // 'idle', 'copying', 'copied'
 
-    {/* Action buttons */}
-    <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/30">
-      <div className="flex items-center gap-2">
-        <button className="btn-icon btn-ghost text-text-tertiary hover:text-primary transition-colors group-hover:opacity-100 opacity-60">
-          <Copy className="w-4 h-4" />
-        </button>
-        <button className="btn-icon btn-ghost text-text-tertiary hover:text-accent-pink transition-colors group-hover:opacity-100 opacity-60">
-          <Heart className="w-4 h-4" />
-        </button>
+  const handleCopy = async () => {
+    try {
+      setCopyStatus('copying');
+      const textToCopy = `"${result.text}" - ${result.author}`;
+      await navigator.clipboard.writeText(textToCopy);
+      setCopyStatus('copied');
+      setTimeout(() => setCopyStatus('idle'), 2000);
+    } catch (error) {
+      console.error('Failed to copy:', error);
+      setCopyStatus('idle');
+    }
+  };
+
+  const handleLike = () => {
+    setIsLiked(!isLiked);
+  };
+
+  return (
+    <div className="quote-card group animate-slide-in" style={{ animationDelay: `${index * 0.1}s` }}>
+      <div className="quote-text pl-6">
+        {result.text}
       </div>
-      <div className="text-xs text-text-tertiary opacity-60 group-hover:opacity-100 transition-opacity">
-        Quote #{index + 1}
+      
+      <div className="quote-author">
+        <User className="w-4 h-4 inline mr-2" />
+        {result.author}
+      </div>
+      
+      <div className="quote-tags">
+        {result.tags.map((tag, idx) => (
+          <span key={idx} className="tag">
+            <Tag className="w-3 h-3 mr-1" />
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {/* Semantic similarity score */}
+      {searchType === 'semantic' && result.similarity_score && (
+        <div className="mt-4 flex items-center gap-2">
+          <Brain className="w-4 h-4 text-secondary" />
+          <span className="text-sm text-text-secondary">
+            Similarity: <span className="font-medium text-secondary">{(result.similarity_score * 100).toFixed(1)}%</span>
+          </span>
+        </div>
+      )}
+
+      {/* Action buttons */}
+      <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/30">
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={handleCopy}
+            className={`btn-icon btn-ghost transition-colors group-hover:opacity-100 opacity-60 ${
+              copyStatus === 'copied' 
+                ? 'text-green-500 hover:text-green-600' 
+                : 'text-text-tertiary hover:text-primary'
+            }`}
+            title={copyStatus === 'copied' ? 'Copied!' : 'Copy quote'}
+          >
+            {copyStatus === 'copied' ? (
+              <Check className="w-4 h-4" />
+            ) : (
+              <Copy className="w-4 h-4" />
+            )}
+          </button>
+          <button 
+            onClick={handleLike}
+            className={`btn-icon btn-ghost transition-colors group-hover:opacity-100 opacity-60 ${
+              isLiked 
+                ? 'text-red-500 hover:text-red-600' 
+                : 'text-text-tertiary hover:text-red-500'
+            }`}
+            title={isLiked ? 'Remove from favorites' : 'Add to favorites'}
+          >
+            <Heart className={`w-4 h-4 ${isLiked ? 'fill-current' : ''}`} />
+          </button>
+        </div>
+        <div className="text-xs text-text-tertiary opacity-60 group-hover:opacity-100 transition-opacity">
+          Quote #{index + 1}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const SearchTypeIcon = ({ type }) => {
   const icons = {
@@ -250,7 +302,7 @@ export default function QuoteSearch() {
             
             <div className="space-y-6">
               {results.map((result, index) => (
-                <SearchResult key={index} result={result} index={index} />
+                <SearchResult key={index} result={result} index={index} searchType={searchType} />
               ))}
             </div>
           </div>
