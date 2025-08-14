@@ -22,7 +22,7 @@ function App() {
           </div>
           
           <p className="text-text-secondary mt-6 text-xl font-light max-w-2xl mx-auto leading-relaxed">
-            Discover, scrape, and explore a universe of inspirational quotes with powerful search capabilities
+            I humbly welcome you to my little pet project - originally just a CLI webscraper and search engine (mainly to test LSI stuff) - now turned into a fully deployed React + Flask web app. I spent a lot of time on the visuals - please enjoy.
           </p>
           
           {/* Floating elements for visual interest */}
