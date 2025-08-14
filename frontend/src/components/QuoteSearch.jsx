@@ -68,7 +68,8 @@ export default function QuoteSearch() {
     setHasSearched(true);
 
     try {
-      const url = new URL('http://localhost:5000/api/search');
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      const url = new URL(`${apiUrl}/api/search`);
       url.searchParams.append('type', searchType);
       url.searchParams.append('query', query);
       url.searchParams.append('exact', exactMatch);
