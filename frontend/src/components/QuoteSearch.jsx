@@ -153,7 +153,7 @@ export default function QuoteSearch() {
     keyword: 'Find quotes containing specific words or phrases',
     author: 'Search by quote author name',
     tag: 'Find quotes with specific tags or categories',
-    semantic: 'AI-powered search that understands meaning and context'
+    semantic: 'LSI-powered search that understands meaning and context'
   };
 
   return (
