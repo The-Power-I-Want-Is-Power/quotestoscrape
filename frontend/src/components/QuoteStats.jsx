@@ -75,6 +75,9 @@ export default function QuoteStats() {
       const data = await response.json();
       
       if (data.success) {
+        console.log('Stats API Response:', data.stats);
+        console.log('Top Authors:', data.stats?.top_authors);
+        console.log('Top Tags:', data.stats?.top_tags);
         setStats(data.stats);
         setLastUpdated(new Date());
       } else {
@@ -176,7 +179,10 @@ export default function QuoteStats() {
                   isTop={index === 0}
                 />
               )) : (
-                <div className="text-text-tertiary text-sm">No author data available</div>
+                <div className="text-text-tertiary text-sm">
+                  No author data available
+                  {stats && <div className="text-xs mt-1">Debug: {JSON.stringify(stats.top_authors)}</div>}
+                </div>
               )}
             </div>
           </div>
@@ -202,7 +208,10 @@ export default function QuoteStats() {
                   index={index}
                 />
               )) : (
-                <div className="text-text-tertiary text-sm">No tag data available</div>
+                <div className="text-text-tertiary text-sm">
+                  No tag data available
+                  {stats && <div className="text-xs mt-1">Debug: {JSON.stringify(stats.top_tags)}</div>}
+                </div>
               )}
             </div>
           </div>

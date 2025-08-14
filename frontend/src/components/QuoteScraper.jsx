@@ -59,7 +59,7 @@ export default function QuoteScraper() {
         </div>
         <div>
           <h2 className="text-2xl font-bold text-text-primary">Quote Scraper</h2>
-          <p className="text-text-tertiary text-sm">Collect quotes from the web</p>
+          <p className="text-text-tertiary text-sm">Collect the quotes</p>
         </div>
       </div>
       
@@ -69,7 +69,7 @@ export default function QuoteScraper() {
           <Globe className="w-5 h-5 text-accent-cyan mt-0.5 flex-shrink-0" />
           <div>
             <p className="text-text-secondary text-sm leading-relaxed">
-              Automatically discover and collect inspirational quotes from various sources across the web. 
+              Automatically discover and collect inspirational quotes from quotestoscrape.com. 
               The scraping process typically takes 30-60 seconds to complete.
             </p>
           </div>
@@ -133,19 +133,7 @@ export default function QuoteScraper() {
         </div>
       )}
 
-      {/* Stats Preview (when not loading) */}
-      {!isLoading && !message && (
-        <div className="mt-6 grid grid-cols-2 gap-3">
-          <div className="stat-card">
-            <div className="stat-value">∞</div>
-            <div className="stat-label">Sources</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-value">✨</div>
-            <div className="stat-label">Quality</div>
-          </div>
-        </div>
-      )}
+      
     </div>
   );
 }
