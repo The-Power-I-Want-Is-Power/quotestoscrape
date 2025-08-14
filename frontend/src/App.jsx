@@ -14,8 +14,8 @@ function App() {
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-600 to-secondary-600 rounded-lg blur opacity-20 animate-pulse-slow"></div>
             <div className="relative flex items-center gap-4 bg-background-secondary/50 backdrop-blur-sm px-8 py-4 rounded-2xl border border-border/30">
               <Quote className="w-8 h-8 text-primary animate-glow" />
-              <h1 className="bg-gradient-to-r from-primary-400 via-secondary-400 to-primary-400 bg-clip-text text-transparent font-bold tracking-tight">
-                QuoteVerse
+              <h1 className="bg-gradient-to-r text-primary-100 bg-clip-text text-transparent font-bold tracking-tight">
+                Scraped Quote Search Engine
               </h1>
               <Sparkles className="w-8 h-8 text-secondary animate-pulse" />
             </div>
