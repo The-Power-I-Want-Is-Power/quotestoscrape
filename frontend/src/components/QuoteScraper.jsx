@@ -52,7 +52,6 @@ export default function QuoteScraper() {
           <div>
             <p className="text-text-secondary text-sm leading-relaxed">
               Automatically discover and collect inspirational quotes from quotestoscrape.com. 
-              The scraping process typically takes 30-60 seconds to complete.
             </p>
           </div>
         </div>
