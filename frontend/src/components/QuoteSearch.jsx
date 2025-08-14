@@ -247,16 +247,33 @@ export default function QuoteSearch() {
 
         {/* Exact Match Option */}
         {(searchType === 'author' || searchType === 'tag') && (
-          <div className="flex items-center gap-3 p-4 rounded-xl bg-surface/30 border border-border/50">
-            <input
-              type="checkbox"
-              id="exactMatch"
-              checked={exactMatch}
-              onChange={(e) => setExactMatch(e.target.checked)}
-              className="checkbox-field"
-            />
-            <label htmlFor="exactMatch" className="text-sm text-text-secondary flex-1">
-              <span className="font-medium">Exact Match</span>
+          <div className={`flex items-center gap-3 p-4 rounded-xl border-2 transition-all duration-200 cursor-pointer ${
+            exactMatch 
+              ? 'bg-secondary-500/10 border-secondary-500/50 ring-1 ring-secondary-500/30' 
+              : 'bg-surface/30 border-border/50 hover:border-border-hover hover:bg-surface/50'
+          }`}
+            onClick={() => setExactMatch(!exactMatch)}
+          >
+            <div className="relative">
+              <input
+                type="checkbox"
+                id="exactMatch"
+                checked={exactMatch}
+                onChange={(e) => setExactMatch(e.target.checked)}
+                className="sr-only"
+              />
+              <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all duration-200 ${
+                exactMatch 
+                  ? 'bg-secondary-500 border-secondary-500 shadow-lg' 
+                  : 'border-border bg-surface hover:border-border-hover'
+              }`}>
+                {exactMatch && (
+                  <Check className="w-3 h-3 text-white" />
+                )}
+              </div>
+            </div>
+            <label htmlFor="exactMatch" className="text-sm text-text-secondary flex-1 cursor-pointer">
+              <span className="font-medium text-text-primary">Exact Match</span>
               <br />
               <span className="text-xs text-text-tertiary">
                 Find only exact matches for {searchType === 'author' ? 'author names' : 'tags'}
