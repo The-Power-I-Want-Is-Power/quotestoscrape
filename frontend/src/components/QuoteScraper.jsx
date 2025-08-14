@@ -4,12 +4,10 @@ import { Loader, Download, Globe, CheckCircle, AlertTriangle, Zap } from 'lucide
 export default function QuoteScraper() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const [progress, setProgress] = useState(0);
 
   const handleScrape = async () => {
     setIsLoading(true);
     setMessage('');
-    setProgress(0);
     
     try {
       const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -17,8 +15,6 @@ export default function QuoteScraper() {
         method: 'POST'
       });
       const data = await response.json();
-      
-      setProgress(100);
       
       setTimeout(() => {
         if (data.success) {
@@ -30,7 +26,6 @@ export default function QuoteScraper() {
       }, 500);
       
     } catch (error) {
-      setProgress(0);
       setMessage('Error connecting to the server');
       console.error('Error:', error);
       setIsLoading(false);
@@ -68,9 +63,9 @@ export default function QuoteScraper() {
         <button
           onClick={handleScrape}
           disabled={isLoading}
-          className={`btn w-full flex items-center justify-center gap-3 py-4 text-lg font-semibold relative overflow-hidden ${
+          className={`btn w-full flex items-center justify-center gap-3 py-4 text-lg font-semibold ${
             isLoading 
-              ? 'btn-ghost cursor-not-allowed loading-progress' 
+              ? 'btn-ghost cursor-not-allowed' 
               : 'btn-primary hover:shadow-lg hover:shadow-primary-500/30'
           }`}
         >
