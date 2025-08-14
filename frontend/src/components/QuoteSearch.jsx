@@ -226,11 +226,11 @@ export default function QuoteSearch() {
                   onChange={(e) => setSearchType(e.target.value)}
                   className="sr-only"
                 />
-                <div className="flex items-center gap-3">
-                  <div className="flex-shrink-0">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 mt-0.5">
                     <SearchTypeIcon type={type} />
                   </div>
-                  <div>
+                  <div className="flex-1">
                     <div className="font-medium text-sm">{label}</div>
                     <div className="text-xs text-text-tertiary mt-1">
                       {searchTypeDescriptions[type]}
