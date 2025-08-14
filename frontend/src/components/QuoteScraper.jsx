@@ -11,7 +11,7 @@ export default function QuoteScraper() {
     setMessage('');
     setProgress(0);
     
-    // Simulate progress for better UX
+    // Simulate progress for better UX experience, more modern, cleaner
     const progressInterval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 90) {
