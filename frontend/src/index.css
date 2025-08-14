@@ -197,11 +197,11 @@
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: var(--color-background-secondary);
+    background-color: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
@@ -211,6 +211,12 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-border-hover);
+  }
+
+  /* Scrollable results container */
+  .results-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border) transparent;
   }
 
   /* Selection styling */

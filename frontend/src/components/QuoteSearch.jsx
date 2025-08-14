@@ -300,7 +300,7 @@ export default function QuoteSearch() {
               </div>
             </div>
             
-            <div className="space-y-6">
+            <div className="max-h-96 overflow-y-auto space-y-6 pr-2 results-scroll">
               {results.map((result, index) => (
                 <SearchResult key={index} result={result} index={index} searchType={searchType} />
               ))}
