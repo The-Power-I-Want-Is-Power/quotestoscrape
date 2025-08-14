@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 
-from scraper import QuoteScraper
-from preprocess import QuoteAnalyzer
-from search import QuoteSearch
+from .scraper import QuoteScraper
+from .preprocess import QuoteAnalyzer
+from .search import QuoteSearch
 
 app = Flask(__name__)
 CORS(app)  # This will allow all origins in development
