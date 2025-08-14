@@ -1,5 +1,4 @@
 # Quotes to Scrape - Web Scraping and Analysis Project
-# Arda Arkan
 
 This project scrapes quotes from [Quotes to Scrape](https://quotes.toscrape.com/), analyzes them using Latent Semantic Indexing (LSI), and provides search functionality.
 
@@ -131,7 +130,7 @@ Tags: attributed-no-source, cry, crying, experience, happiness, joy, life, smile
 - Pandas for data manipulation
 - NLTK for text preprocessing
 - Scikit-learn for implementing LSI
-- Matplotlib for visualization
+
 
 ## license
 
