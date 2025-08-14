@@ -75,9 +75,6 @@ export default function QuoteStats() {
       const data = await response.json();
       
       if (data.success) {
-        console.log('Stats API Response:', data.stats);
-        console.log('Top Authors:', data.stats?.top_authors);
-        console.log('Top Tags:', data.stats?.top_tags);
         setStats(data.stats);
         setLastUpdated(new Date());
       } else {
@@ -170,20 +167,36 @@ export default function QuoteStats() {
             </div>
             
             <div className="space-y-3">
-              {stats?.top_authors && Array.isArray(stats.top_authors) ? stats.top_authors.map(([author, count], index) => (
-                <TopAuthorItem 
-                  key={author} 
-                  author={author} 
-                  count={count} 
-                  rank={index + 1}
-                  isTop={index === 0}
-                />
-              )) : (
-                <div className="text-text-tertiary text-sm">
-                  No author data available
-                  {stats && <div className="text-xs mt-1">Debug: {JSON.stringify(stats.top_authors)}</div>}
-                </div>
-              )}
+              {(() => {
+                const authors = stats?.top_authors;
+                if (!authors) return <div className="text-text-tertiary text-sm">No author data available</div>;
+                
+                // Handle different data formats
+                let authorArray = [];
+                if (Array.isArray(authors)) {
+                  // If it's already an array of arrays: [["author", count], ...]
+                  if (authors.length > 0 && Array.isArray(authors[0])) {
+                    authorArray = authors;
+                  }
+                  // If it's an array of objects: [{author: "name", count: 5}, ...]
+                  else if (authors.length > 0 && typeof authors[0] === 'object') {
+                    authorArray = authors.map(item => [item.author || item.name, item.count]);
+                  }
+                } else if (typeof authors === 'object') {
+                  // If it's an object: {"author1": count1, "author2": count2}
+                  authorArray = Object.entries(authors);
+                }
+                
+                return authorArray.length > 0 ? authorArray.map(([author, count], index) => (
+                  <TopAuthorItem 
+                    key={author} 
+                    author={author} 
+                    count={count} 
+                    rank={index + 1}
+                    isTop={index === 0}
+                  />
+                )) : <div className="text-text-tertiary text-sm">No author data available</div>;
+              })()}
             </div>
           </div>
 
@@ -200,19 +213,35 @@ export default function QuoteStats() {
             </div>
             
             <div className="flex flex-wrap gap-3">
-              {stats?.top_tags && Array.isArray(stats.top_tags) ? stats.top_tags.map(([tag, count], index) => (
-                <TopTagItem 
-                  key={tag} 
-                  tag={tag} 
-                  count={count} 
-                  index={index}
-                />
-              )) : (
-                <div className="text-text-tertiary text-sm">
-                  No tag data available
-                  {stats && <div className="text-xs mt-1">Debug: {JSON.stringify(stats.top_tags)}</div>}
-                </div>
-              )}
+              {(() => {
+                const tags = stats?.top_tags;
+                if (!tags) return <div className="text-text-tertiary text-sm">No tag data available</div>;
+                
+                // Handle different data formats
+                let tagArray = [];
+                if (Array.isArray(tags)) {
+                  // If it's already an array of arrays: [["tag", count], ...]
+                  if (tags.length > 0 && Array.isArray(tags[0])) {
+                    tagArray = tags;
+                  }
+                  // If it's an array of objects: [{tag: "name", count: 5}, ...]
+                  else if (tags.length > 0 && typeof tags[0] === 'object') {
+                    tagArray = tags.map(item => [item.tag || item.name, item.count]);
+                  }
+                } else if (typeof tags === 'object') {
+                  // If it's an object: {"tag1": count1, "tag2": count2}
+                  tagArray = Object.entries(tags);
+                }
+                
+                return tagArray.length > 0 ? tagArray.map(([tag, count], index) => (
+                  <TopTagItem 
+                    key={tag} 
+                    tag={tag} 
+                    count={count} 
+                    index={index}
+                  />
+                )) : <div className="text-text-tertiary text-sm">No tag data available</div>;
+              })()}
             </div>
           </div>
 
