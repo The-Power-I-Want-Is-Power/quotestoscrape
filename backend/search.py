@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 import re
-from preprocess import QuoteAnalyzer
+from .preprocess import QuoteAnalyzer
 
 class QuoteSearch:
     def __init__(self, data_dir='data', quotes_file='quotes.pkl'):
