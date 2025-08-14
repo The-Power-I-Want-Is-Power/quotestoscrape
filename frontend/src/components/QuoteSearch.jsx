@@ -109,7 +109,7 @@ const SearchTypeIcon = memo(({ type }) => {
     semantic: Brain
   };
   const Icon = icons[type] || Search;
-  return <Icon className="w-4 h-4" />;
+  return <Icon className="w-5 h-5 text-primary" />;
 });
 
 export default function QuoteSearch() {
@@ -227,7 +227,9 @@ export default function QuoteSearch() {
                   className="sr-only"
                 />
                 <div className="flex items-center gap-3">
-                  <SearchTypeIcon type={type} />
+                  <div className="flex-shrink-0">
+                    <SearchTypeIcon type={type} />
+                  </div>
                   <div>
                     <div className="font-medium text-sm">{label}</div>
                     <div className="text-xs text-text-tertiary mt-1">
